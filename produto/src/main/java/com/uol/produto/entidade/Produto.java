@@ -9,7 +9,9 @@ public class Produto {
 	private String nome;
 	private Double preco;
 	private String descricao;
-	
+	public String getId() {
+		return id;
+	}
 	public String getNome() {
 		return nome;
 	}
