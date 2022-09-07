@@ -1,13 +1,13 @@
-package com.uol.servico;
+package com.uol.produto;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServicoApplication {
+public class ProdutoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServicoApplication.class, args);
+		SpringApplication.run(ProdutoApplication.class, args);
 	}
 
 }
