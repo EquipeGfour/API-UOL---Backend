@@ -5,22 +5,20 @@ public class VerificarNulo {
 	public boolean VerificarString(String dado) {
 		boolean nulo = true;
 		if (!(dado == null)) {
-			if (dado.isBlank()) {
+			if (!dado.isBlank()) {
 				nulo = false;
 			}
 		}
 		return nulo;
 	}
 	
-	public boolean VerificarDooble(Double dados) {
+	public boolean VerificarDouble(Double dado) {
 		boolean nulo = true;
-		if(!(dados == null)) {
-			if(dados.isNaN()) {
+		if(!(dado == null)) {
+			if(!dado.isNaN()) {
 				nulo = false;
 			}
 		}
 		return nulo;
 	}
-	
-	
 }
