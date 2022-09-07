@@ -1,6 +1,7 @@
 package com.uol.produto.controle;
 
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class ProdutoControle {
 	}
 	
 	@PostMapping("/cadastrar")
-	public String cadastrarProduto(@RequestBody Produto produto) {
+	public String cadastrarProduto(@RequestBody @Valid Produto produto) {
 		Produto produtoCriado = repositorio.save(produto);
 		return "id do produto: " + produtoCriado.getId();
 	}
@@ -51,7 +52,7 @@ public class ProdutoControle {
 	}
 	
 	@DeleteMapping("/excluir/{id}")
-	public String excluirProduto(@RequestBody Produto dados, @PathVariable String id) {
+	public String excluirProduto(@PathVariable String id) {
 		Produto selecionado = repositorio.findById(id).orElse(null);
 		System.out.print(selecionado);
 		if(selecionado != null) {

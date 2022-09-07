@@ -1,13 +1,20 @@
 package com.uol.produto.entidade;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
+
+
 
 public class Produto {
 
 	@Id
 	private String id;
+	@NotNull(message = "O Nome não pode ser um Valor Nulo.")
 	private String nome;
+	@NotNull(message = "O Preço não pode ser um Valor Nulo.")
 	private Double preco;
+	@NotNull(message = "A Descrição não pode ser um Valor Nulo.")
 	private String descricao;
 
 	public String getId() {
