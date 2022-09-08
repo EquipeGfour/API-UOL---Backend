@@ -12,7 +12,7 @@ public class Categoria {
 	private String id;
 	@NotNull(message = "O Nome não pode ser um Valor Nulo")
 	private String nome;
-	//@NotNull(message = "A lista de produtos não pode ser um valor Nulo")
+	@NotNull(message = "A lista de produtos não pode ser um valor Nulo")
 	private List<Produto> produtos;	
 	
 	
