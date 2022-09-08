@@ -54,7 +54,6 @@ public class ProdutoControle {
 	@DeleteMapping("/excluir/{id}")
 	public String excluirProduto(@PathVariable String id) {
 		Produto selecionado = repositorio.findById(id).orElse(null);
-		System.out.print(selecionado);
 		if(selecionado != null) {
 			repositorio.delete(selecionado);
 			return "Produto excluido.";
