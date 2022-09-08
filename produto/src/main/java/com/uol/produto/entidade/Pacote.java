@@ -17,7 +17,7 @@ public class Pacote {
 	private Float preco;
 	@NotNull(message = "A Descrição não pode ser um Valor Nulo.")	
 	private String descricao;
-	@NotNull(message = "A lista de produtos não pode ser um Valor Nulo.")
+	//@NotNull(message = "A lista de produtos não pode ser um Valor Nulo.")
 	private List<Produto> produtos;
 	
 	
