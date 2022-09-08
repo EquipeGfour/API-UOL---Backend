@@ -6,15 +6,18 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.produto.entidade.Pacote;
 import com.uol.produto.entidade.Produto;
+import com.uol.produto.modelo.PacoteAtualizador;
 import com.uol.produto.repositorio.PacoteRepositorio;
 import com.uol.produto.repositorio.ProdutoRepositorio;
 
@@ -27,6 +30,8 @@ public class PacoteControle {
 	
 	@Autowired
 	private ProdutoRepositorio repositorioProduto;
+	
+	private PacoteAtualizador atualizador = new PacoteAtualizador();
 	
 	@GetMapping("/buscar")
 	public List<Pacote> buscarPacotes(){
@@ -50,13 +55,30 @@ public class PacoteControle {
 			}
 		}
 		pacote.setProdutos(produtos);
-		Pacote pacoteCriado = repositorio.save(pacote);
-		
-				
+		Pacote pacoteCriado = repositorio.save(pacote);	
 		return pacoteCriado.getId();
 	}
 	
-
-
+	@PutMapping("/atualizar/{id}")
+	public String atualizarPacote(@RequestBody Pacote atualizacao, @PathVariable String id) {
+		Pacote selecionado = repositorio.findById(id).orElse(null);
+		if(selecionado != null) {
+			atualizador.atualizarPacote(selecionado, atualizacao);
+			repositorio.save(selecionado);
+			return "Pacote excluido.";
+		}
+		return "Pacote de id " + id + " não existe.";
+	}
+	
+	
+	@DeleteMapping("/excluir/{id}")
+	public String excluirPacote(@PathVariable String id) {
+		Pacote selecionado = repositorio.findById(id).orElse(null);
+		if(selecionado != null) {
+			repositorio.delete(selecionado);
+			return "Pacote excluido.";
+		}
+		return "Pacote de id " + id + " não existe.";
+	}
 
 }

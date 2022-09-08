@@ -14,7 +14,7 @@ public class Pacote {
 	@NotNull(message = "O Nome não pode ser um Valor Nulo.")
 	private String nome;
 	@NotNull(message = "O Preço não pode ser um Valor Nulo.")
-	private Float preco;
+	private Double preco;
 	@NotNull(message = "A Descrição não pode ser um Valor Nulo.")	
 	private String descricao;
 	@NotNull(message = "A lista de produtos não pode ser um Valor Nulo.")
@@ -37,11 +37,11 @@ public class Pacote {
 		this.nome = nome;
 	}
 
-	public Float getPreco() {
+	public Double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Float preco) {
+	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 
