@@ -38,7 +38,7 @@ public class CategoriaControle {
 	}
 	
 	@PostMapping("/cadastrar")
-	public String cadastrarCategoria(@RequestBody @Valid Categoria categoria) {
+	public String cadastrarCategoria(@RequestBody Categoria categoria) {
 		Categoria categoriaCriada = repositorio.save(categoria);
 		return "id do categoria: " + categoriaCriada.getId();
 		
