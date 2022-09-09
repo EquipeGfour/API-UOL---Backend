@@ -1,4 +1,4 @@
-package com.uol.produto.modelo;
+package com.uol.crud.modelo;
 
 public class VerificarNulo {
 

@@ -1,4 +1,4 @@
-package com.uol.produto.entidade;
+package com.uol.crud.entidade;
 
 import javax.validation.constraints.NotNull;
 

@@ -1,4 +1,4 @@
-package com.uol.produto.controle;
+package com.uol.crud.controle;
 
 import java.util.List;
 import javax.validation.Valid;
@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.uol.produto.entidade.Produto;
-import com.uol.produto.modelo.ProdutoAtualizador;
-import com.uol.produto.repositorio.ProdutoRepositorio;
+
+import com.uol.crud.entidade.Produto;
+import com.uol.crud.modelo.ProdutoAtualizador;
+import com.uol.crud.repositorio.ProdutoRepositorio;
 
 @RestController
 @RequestMapping("/produto")

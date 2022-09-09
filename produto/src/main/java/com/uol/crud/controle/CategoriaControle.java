@@ -1,4 +1,4 @@
-package com.uol.produto.controle;
+package com.uol.crud.controle;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uol.produto.entidade.Categoria;
-import com.uol.produto.modelo.CategoriaAtualizador;
-import com.uol.produto.repositorio.CategoriaRepositorio;
+import com.uol.crud.entidade.Categoria;
+import com.uol.crud.modelo.CategoriaAtualizador;
+import com.uol.crud.repositorio.CategoriaRepositorio;
 
 @RestController
 @RequestMapping ("/categoria")

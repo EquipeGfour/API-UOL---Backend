@@ -1,6 +1,6 @@
-package com.uol.produto.modelo;
+package com.uol.crud.modelo;
 
-import com.uol.produto.entidade.Pacote;
+import com.uol.crud.entidade.Pacote;
 
 public class PacoteAtualizador {
 	

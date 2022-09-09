@@ -1,8 +1,8 @@
-package com.uol.produto.repositorio;
+package com.uol.crud.repositorio;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.uol.produto.entidade.Pacote;
+import com.uol.crud.entidade.Pacote;
 
 public interface PacoteRepositorio extends MongoRepository<Pacote, String>{
 

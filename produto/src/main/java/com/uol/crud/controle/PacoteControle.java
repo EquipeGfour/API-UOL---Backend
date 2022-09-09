@@ -1,4 +1,4 @@
-package com.uol.produto.controle;
+package com.uol.crud.controle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uol.produto.entidade.Pacote;
-import com.uol.produto.entidade.Produto;
-import com.uol.produto.modelo.PacoteAtualizador;
-import com.uol.produto.repositorio.PacoteRepositorio;
-import com.uol.produto.repositorio.ProdutoRepositorio;
+import com.uol.crud.entidade.Pacote;
+import com.uol.crud.entidade.Produto;
+import com.uol.crud.modelo.PacoteAtualizador;
+import com.uol.crud.repositorio.PacoteRepositorio;
+import com.uol.crud.repositorio.ProdutoRepositorio;
 
 @RestController
 @RequestMapping("/pacote")

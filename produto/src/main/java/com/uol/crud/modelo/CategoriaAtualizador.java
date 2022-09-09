@@ -1,6 +1,6 @@
-package com.uol.produto.modelo;
+package com.uol.crud.modelo;
 
-import com.uol.produto.entidade.Categoria;
+import com.uol.crud.entidade.Categoria;
 
 public class CategoriaAtualizador {
 	
