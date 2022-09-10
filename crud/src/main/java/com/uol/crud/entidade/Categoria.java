@@ -11,9 +11,8 @@ public class Categoria {
 	
 	@Id
 	private String id;
-	//@NotNull(message = "O Nome não pode ser um Valor Nulo")
+	@NotNull(message = "O Nome não pode ser um Valor Nulo")
 	private String nome;
-	
 	private List<Produto> produtos = new ArrayList<>();
 
 	public String getId() {

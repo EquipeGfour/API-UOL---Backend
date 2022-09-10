@@ -1,5 +1,6 @@
 package com.uol.crud.entidade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -18,7 +19,7 @@ public class Pacote {
 	@NotNull(message = "A Descrição não pode ser um Valor Nulo.")	
 	private String descricao;
 	@NotNull(message = "A lista de produtos não pode ser um Valor Nulo.")
-	private List<Produto> produtos;
+	private List<Produto> produtos = new ArrayList<>();
 	
 	
 	public String getId() {
