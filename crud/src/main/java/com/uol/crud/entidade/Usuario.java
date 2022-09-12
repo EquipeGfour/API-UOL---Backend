@@ -22,6 +22,7 @@ public class Usuario {
 	@NotNull(message = "A Senha não pode ser um Valor Nulo.")
 	private String senha;
 	private List<Pacote> pacotes = new ArrayList<>();
+	private List<Categoria> interesses = new ArrayList<>();
 	
 	public String getId() {
 		return id;
@@ -70,6 +71,14 @@ public class Usuario {
 	}
 	public void setPacotes(List<Pacote> pacotes) {
 		this.pacotes = pacotes;
+	}
+	
+	public List<Categoria> getInteresses(){
+		return interesses;
+	}
+	
+	public void setInteresses(List<Categoria> interesses) {
+		this.interesses = interesses;
 	}
 	
 }
