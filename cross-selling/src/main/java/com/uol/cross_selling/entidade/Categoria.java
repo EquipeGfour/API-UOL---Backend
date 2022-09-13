@@ -10,7 +10,7 @@ public class Categoria {
 	@Id
 	private String id;
 	private String nome;
-	private List<Pacote> pacotes =  new ArrayList<>();
+	private List<Produto> produtos =  new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -26,10 +26,10 @@ public class Categoria {
 		this.nome = nome;
 	}
 	
-	public List<Pacote> getPacotes() {
-		return pacotes;
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
-	public void setPacotes(List<Pacote> pacotes) {
-		this.pacotes = pacotes;
+	public void setProdutos(List<Produto> pacotes) {
+		this.produtos = pacotes;
 	}
 }
