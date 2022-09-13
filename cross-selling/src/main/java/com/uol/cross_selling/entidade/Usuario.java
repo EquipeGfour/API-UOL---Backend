@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
+
+
 public class Usuario {
 	
 	@Id
@@ -15,6 +17,7 @@ public class Usuario {
 	private String email;
 	private String senha;
 	private List<Pacote> pacotes = new ArrayList<>();
+	private List<Categoria> interesses = new ArrayList<>();
 	
 	public String getId() {
 		return id;
@@ -63,6 +66,13 @@ public class Usuario {
 	}
 	public void setPacotes(List<Pacote> pacotes) {
 		this.pacotes = pacotes;
+	}
+	public List<Categoria> getInteresses(){
+		return interesses;
+	}
+	
+	public void setInteresses(List<Categoria> interesses) {
+		this.interesses = interesses;
 	}
 	
 }
