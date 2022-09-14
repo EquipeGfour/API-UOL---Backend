@@ -2,8 +2,9 @@ package com.uol.cross_selling.entidade;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.data.annotation.Id;
+
+
 
 
 
