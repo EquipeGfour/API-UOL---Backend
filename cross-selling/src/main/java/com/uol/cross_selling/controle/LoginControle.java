@@ -20,13 +20,16 @@ public class LoginControle {
 	@PostMapping("/")
 	public RespostaLogin logar(@RequestBody Usuario usuarioLogin) {
 		Usuario selecionado = usuarioRepositorio.findUsuarioByEmail(usuarioLogin.getEmail());
-		String mensagem = "Email ou senha não encontrado";
+		
 		if (selecionado.getSenha().contains(usuarioLogin.getSenha()))  {
-			 mensagem = "Login efetuado com sucesso";
+			
+			 RespostaLogin resposta = new RespostaLogin(selecionado.getId(), "Login efetuado com sucesso" , selecionado);
+			 return resposta;
 		}
-				
-		RespostaLogin resposta = new RespostaLogin(selecionado.getId(), mensagem , selecionado);
-		return resposta;
+		else {
+			RespostaLogin resposta = new RespostaLogin(selecionado.getId(), "Email ou senha não encontrado" , null);
+			return resposta;
+		}
 		}
 
 }
