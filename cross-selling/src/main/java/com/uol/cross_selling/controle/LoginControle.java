@@ -30,6 +30,6 @@ public class LoginControle {
 			RespostaLogin resposta = new RespostaLogin(selecionado.getId(), "Email ou senha não encontrado" , null);
 			return resposta;
 		}
-		}
+	}
 
 }
