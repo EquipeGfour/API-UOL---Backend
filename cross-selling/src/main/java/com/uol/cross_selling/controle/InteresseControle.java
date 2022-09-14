@@ -17,8 +17,7 @@ import com.uol.cross_selling.repositorio.UsuarioRepositorio;
 @RestController
 @RequestMapping("/perfil")
 public class InteresseControle {
-	@Autowired
-	private CategoriaRepositorio categoriaRepositorio;
+
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 	
@@ -27,7 +26,6 @@ public class InteresseControle {
 		Usuario usuarioSelecionado = usuarioRepositorio.findById(idUsuario).orElse(null);
 		usuarioSelecionado.getInteresses().addAll(categorias);
 		usuarioRepositorio.save(usuarioSelecionado);
-		
 	}
 
 }

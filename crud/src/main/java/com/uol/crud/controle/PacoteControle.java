@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uol.crud.entidade.Pacote;
 import com.uol.crud.entidade.Produto;
 import com.uol.crud.modelo.PacoteAtualizador;
+import com.uol.crud.modelo.RespostaDelete;
+import com.uol.crud.modelo.RespostaGet;
+import com.uol.crud.modelo.RespostaPost;
+import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.PacoteRepositorio;
 import com.uol.crud.repositorio.ProdutoRepositorio;
 
@@ -39,14 +43,21 @@ public class PacoteControle {
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public Pacote buscarPacoteId (@PathVariable String id){
-		return repositorio.findById(id).orElse(null);
+	public RespostaGet buscarPacoteId (@PathVariable String id){
+		Pacote selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Pacote encontrado"; 
+		if(selecionado == null) {
+			mensagem = "Pacote não encontrado";
+		}
+		RespostaGet resposta = new RespostaGet(id, mensagem, selecionado);
+		return resposta;
 	}
 	
 	@PostMapping("/cadastrar")
-	public String cadastrarPacote (@RequestBody @Valid Pacote pacote) {
+	public RespostaPost cadastrarPacote (@RequestBody @Valid Pacote pacote) {
 		
 		List<Produto> produtos = new ArrayList<Produto>();
+		
 		
 		for (Produto p:pacote.getProdutos()) {
 			Produto selecionado = repositorioProduto.findById(p.getId()).orElse(null);
@@ -56,29 +67,34 @@ public class PacoteControle {
 		}
 		pacote.setProdutos(produtos);
 		Pacote pacoteCriado = repositorio.save(pacote);	
-		return pacoteCriado.getId();
+		RespostaPost resposta = new RespostaPost(pacoteCriado.getId(), "Pacote Criado com Sucesso");
+		return resposta;
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public String atualizarPacote(@RequestBody Pacote atualizacao, @PathVariable String id) {
+	public RespostaPut atualizarPacote(@RequestBody Pacote atualizacao, @PathVariable String id) {
 		Pacote selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Pacote não encontrado";
 		if(selecionado != null) {
+			mensagem = "Pacote Atualizado com Sucesso";
 			atualizador.atualizarPacote(selecionado, atualizacao);
 			repositorio.save(selecionado);
-			return "Pacote excluido.";
 		}
-		return "Pacote de id " + id + " não existe.";
+		RespostaPut resposta = new RespostaPut(id, mensagem);
+		return resposta;
 	}
 	
 	
 	@DeleteMapping("/excluir/{id}")
-	public String excluirPacote(@PathVariable String id) {
+	public RespostaDelete excluirPacote(@PathVariable String id) {
 		Pacote selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Pacote não encontrado";
 		if(selecionado != null) {
+			mensagem = "Pacote excluido.";
 			repositorio.delete(selecionado);
-			return "Pacote excluido.";
 		}
-		return "Pacote de id " + id + " não existe.";
+		RespostaDelete resposta = new RespostaDelete(id, mensagem);
+		return resposta;
 	}
 
 }

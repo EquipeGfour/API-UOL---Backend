@@ -3,6 +3,8 @@ package com.uol.crud.controle;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Produto;
 import com.uol.crud.modelo.ProdutoAtualizador;
+import com.uol.crud.modelo.RespostaDelete;
+import com.uol.crud.modelo.RespostaGet;
+import com.uol.crud.modelo.RespostaPost;
+import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.ProdutoRepositorio;
 
 @RestController
@@ -31,36 +37,46 @@ public class ProdutoControle {
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public Produto obterProdutoID(@PathVariable String id) {
-		return repositorio.findById(id).get();
+	public RespostaGet obterProdutoID(@PathVariable String id) {
+		Produto selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Produto encontrado";
+		if(selecionado == null) {
+			mensagem = "Produto não encontrado";
+		}
+		RespostaGet resposta = new RespostaGet(id, mensagem, selecionado);
+		return resposta;
 	}
 	
 	@PostMapping("/cadastrar")
-	public String cadastrarProduto(@RequestBody @Valid Produto produto) {
+	public ResponseEntity<RespostaPost>  cadastrarProduto(@RequestBody @Valid Produto produto) {
 		Produto produtoCriado = repositorio.save(produto);
-		return "id do produto: " + produtoCriado.getId();
+		RespostaPost resposta = new RespostaPost(produtoCriado.getId(), "Produto Criado com Sucesso");
+		return new ResponseEntity<>(resposta,HttpStatus.ACCEPTED);
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public String atualizarProduto(@RequestBody Produto atualizacao, @PathVariable String id ) {
-		Produto selecionado = repositorio.findById(id).orElse(null);	
+	public RespostaPut atualizarProduto(@RequestBody Produto atualizacao, @PathVariable String id ) {
+		Produto selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Produto não encontrado.";
 		if(selecionado != null){
+			mensagem = "Produto Atualizado com Sucesso";
 			atualizador.atualizarProduto(selecionado, atualizacao);
 			repositorio.save(selecionado);
-			return "Produto Atualizado com Sucesso";
 		}
-		return "Produto de id " + id + " não existe.";
+		RespostaPut resposta = new RespostaPut(id, mensagem);
+		return resposta;
 	}
 	
 	@DeleteMapping("/excluir/{id}")
-	public String excluirProduto(@PathVariable String id) {
+	public RespostaDelete excluirProduto(@PathVariable String id) {
 		Produto selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Produto não encontrado.";
 		if(selecionado != null) {
+			mensagem = "Produto excluido.";
 			repositorio.delete(selecionado);
-			return "Produto excluido.";
 		}
-		return "Produto de id " + id + " não existe.";
+		RespostaDelete resposta = new RespostaDelete(id, mensagem);
+		return resposta;
 	}
-	
 	
 }

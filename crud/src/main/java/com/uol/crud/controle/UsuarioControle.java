@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Usuario;
+import com.uol.crud.modelo.RespostaGet;
+import com.uol.crud.modelo.RespostaPost;
 import com.uol.crud.repositorio.UsuarioRepositorio;
 
 @RestController
@@ -27,12 +29,20 @@ public class UsuarioControle {
 		return repositorio.findAll();
 	}
 	@GetMapping("/usuario/{id}")
-	public Usuario buscarUsuarioId(@PathVariable String id) {
-		return repositorio.findById(id).orElse(null);
+	public RespostaGet buscarUsuarioId(@PathVariable String id) {
+		Usuario selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Usuario encontrado";
+		if(selecionado == null) {
+			mensagem = "Usuario não encontrado";
+		}
+		RespostaGet resposta = new RespostaGet(id, mensagem, selecionado);
+		return resposta;
 	}
 	@PostMapping("/cadastro")
-	public void cadastroUsuario(@RequestBody @Valid Usuario usuario) {
-		repositorio.save(usuario);
+	public RespostaPost cadastroUsuario(@RequestBody @Valid Usuario usuario) {
+		Usuario user = repositorio.save(usuario);
+		RespostaPost resposta = new RespostaPost(user.getId(), "Usuario Criado com Sucesso");
+		return resposta;
 		
 	}
 }

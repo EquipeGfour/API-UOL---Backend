@@ -1,10 +1,7 @@
 package com.uol.crud.entidade;
 
 import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
-
-
 
 public class Produto {
 
