@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Categoria;
 import com.uol.crud.modelo.CategoriaAtualizador;
+import com.uol.crud.modelo.RespostaDelete;
+import com.uol.crud.modelo.RespostaGet;
+import com.uol.crud.modelo.RespostaPost;
+import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.CategoriaRepositorio;
 
 @RestController
@@ -31,36 +35,48 @@ public class CategoriaControle {
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public Categoria buscarCategoriaIID(@PathVariable String id) {
-		return repositorio.findById(id).get();
+	public RespostaGet buscarCategoriaIID(@PathVariable String id) {
+		Categoria selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Categoria encontrada.";
+		if(selecionado == null) {
+			mensagem = "Categoria não encontrada.";
+		}
+		RespostaGet resposta = new RespostaGet(id, mensagem, selecionado);
+		return resposta;		
 	}
 	
 	@PostMapping("/cadastrar")
-	public String cadastrarCategoria(@RequestBody Categoria categoria) {
+	public RespostaPost cadastrarCategoria(@RequestBody Categoria categoria) {
 		Categoria categoriaCriada = repositorio.save(categoria);
-		return "id do categoria: " + categoriaCriada.getId();
+		RespostaPost resposta = new RespostaPost(categoriaCriada.getId(), "Categoria criada com sucesso.");
+		return resposta;
 		
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public String atualizarCategoria(@RequestBody Categoria atualizarDados, @PathVariable String id) {
+	public RespostaPut atualizarCategoria(@RequestBody Categoria atualizarDados, @PathVariable String id) {
 		Categoria selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Categoria não encontrada.";
 		if(selecionado != null) {
 			atualizador.atualizarCategoria(selecionado, atualizarDados);
 			repositorio.save(selecionado);
-			return "Categoria Atualizada.";
+			mensagem = "Categoria Atualizada.";
 		}
-		return "Categoria de Id " + id + " Não Existe.";
+		RespostaPut resposta = new RespostaPut(id, mensagem);
+		return resposta;
 	}
 	
 	@DeleteMapping("/excluir/{id}")
-	public String excluirCategoria(@PathVariable String id) {
+	public RespostaDelete excluirCategoria(@PathVariable String id) {
 		Categoria selecionado = repositorio.findById(id).orElse(null);
+		String mensagem = "Categoria não encontrada.";
 		if(selecionado != null ) {
 			repositorio.delete(selecionado);
-			return "Categoria Excluída.";
+			mensagem = "Categoris Excluida.";
+			
 		}
-		return "Categoria de Id " + id + " Não Existe.";
+		RespostaDelete resposta = new RespostaDelete(id, mensagem);
+		return resposta;
 	}
 	
 	
