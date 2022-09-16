@@ -40,9 +40,13 @@ public class UsuarioControle {
 	}
 	@PostMapping("/cadastro")
 	public RespostaPost cadastroUsuario(@RequestBody @Valid Usuario usuario) {
-		Usuario user = repositorio.save(usuario);
-		RespostaPost resposta = new RespostaPost(user.getId(), "Usuario Criado com Sucesso");
-		return resposta;
+		try {
+			Usuario user = repositorio.save(usuario);
+			RespostaPost resposta = new RespostaPost(user.getId(), "Usuario Criado com Sucesso");
+			return resposta;
+		}catch(Exception error) {
+			return new RespostaPost(null, error.getMessage());
+		}
 		
 	}
 }

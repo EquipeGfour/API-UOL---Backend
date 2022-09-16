@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Categoria;
+import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.CategoriaRepositorio;
 
 @RestController
@@ -17,14 +18,16 @@ public class ClassificarProduto {
 	private CategoriaRepositorio repositorio;
 	
 	@PutMapping("/classificar")
-	public String alocarProduto(@RequestBody Categoria categoria) {
+	public RespostaPut alocarProduto(@RequestBody Categoria categoria) {
 		Categoria selecionado = repositorio.findById(categoria.getId()).orElse(null);
+		String mensagem = "Categoria não encontrada";
 		if(selecionado != null) {
 			selecionado.getProdutos().addAll(categoria.getProdutos());
 			repositorio.save(selecionado);
-			return "Produtos classificados com sucesso!";
+			mensagem = "Produtos classificados com sucesso!";
 		}
-		return "Categoria de id " + categoria.getId() + " não existe.";	
+		RespostaPut reposta = new RespostaPut(categoria.getId(), mensagem);
+		return reposta;	
 		
 	}
 	
