@@ -5,13 +5,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.cross_selling.entidade.Categoria;
+import com.uol.cross_selling.entidade.Usuario;
+import com.uol.cross_selling.modelo.RespostaGet;
 import com.uol.cross_selling.repositorio.CategoriaRepositorio;
+import com.uol.cross_selling.repositorio.UsuarioRepositorio;
 
 @RestController
 @CrossOrigin
@@ -19,19 +22,35 @@ import com.uol.cross_selling.repositorio.CategoriaRepositorio;
 public class PreferenciasControle {
 	
 	@Autowired
-	private CategoriaRepositorio categoriaRepositorio;
+	private UsuarioRepositorio repositorio;
+	@Autowired
+    private CategoriaRepositorio categoriaRepositorio;
 	
-	@PostMapping("/preferencias-usuario")
-	public List<Categoria> preferenciasUsuario(@RequestBody List<Categoria> usuarioInteresses){
-		List<Categoria> categorias = categoriaRepositorio.findAll();
-		List<Categoria> interesses = new ArrayList<Categoria>();
-		for(Categoria categoriaInteresse : usuarioInteresses) {
-			for(Categoria categoria : categorias) {
-				if(categoria.getId().contains(categoriaInteresse.getId())) {
-					interesses.add(categoria);
-				}
-			}
+	
+	@GetMapping("/preferencias-usuario/{id}")
+	public RespostaGet preferenciasUsuario(@PathVariable String id){
+		
+		String mensagem = "Usuario Encontrado";
+		Usuario selecionado = repositorio.findById(id).orElse(null);
+		if(selecionado == null) {
+			mensagem = "Usuario não Encontrado.";
 		}
-		return interesses;
+		RespostaGet resposta = new RespostaGet(mensagem,id,selecionado.getInteresses());
+		return resposta;
 	}
+	
+	@GetMapping("/preferencias/{id}")
+    public List<Categoria> preferenciasUser(@PathVariable String id){
+		List<Categoria> categorias = categoriaRepositorio.findAll();
+		Usuario selecionado = repositorio.findById(id).orElse(null);
+        List<Categoria> interesses = new ArrayList<Categoria>();
+        for(Categoria categoriaInteresse : selecionado.getInteresses()){
+            for(Categoria categoria : categorias) {
+                if(categoria.getId().contains(categoriaInteresse.getId())) {
+                    interesses.add(categoria);
+               }
+            }
+        }
+        return interesses;       
+    }
 } 
