@@ -14,7 +14,7 @@ public class Usuario {
 	@NotNull(message = "O Nome não pode ser um Valor Nulo.")
 	private String nome;
 	@NotNull(message = "O Cpf não pode ser um Valor Nulo.")
-	private Long cpf;
+	private String cpf;
 	@NotNull(message = "O Email não pode ser um Valor Nulo.")
 	private String email;
 	@NotNull(message = "A Senha não pode ser um Valor Nulo.")
@@ -36,10 +36,10 @@ public class Usuario {
 		this.nome = nome;
 	}
 	
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	
@@ -56,7 +56,6 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
 	public List<Pacote> getPacotes() {
 		return pacotes;
 	}

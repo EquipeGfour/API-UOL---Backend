@@ -57,9 +57,7 @@ public class PacoteControle {
 	
 	@PostMapping("/cadastrar")
 	public RespostaPost cadastrarPacote (@RequestBody @Valid Pacote pacote) {
-		
 		List<Produto> produtos = new ArrayList<Produto>();
-		
 		
 		for (Produto p:pacote.getProdutos()) {
 			Produto selecionado = repositorioProduto.findById(p.getId()).orElse(null);
@@ -67,6 +65,7 @@ public class PacoteControle {
 				produtos.add(selecionado);
 			}
 		}
+		
 		pacote.setProdutos(produtos);
 		Pacote pacoteCriado = repositorio.save(pacote);	
 		RespostaPost resposta = new RespostaPost(pacoteCriado.getId(), "Pacote Criado com Sucesso");

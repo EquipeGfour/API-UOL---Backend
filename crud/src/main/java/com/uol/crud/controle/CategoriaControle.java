@@ -1,5 +1,6 @@
 package com.uol.crud.controle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Categoria;
+import com.uol.crud.entidade.Produto;
 import com.uol.crud.modelo.CategoriaAtualizador;
 import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
 import com.uol.crud.modelo.RespostaPost;
 import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.CategoriaRepositorio;
+import com.uol.crud.repositorio.ProdutoRepositorio;
 
 @RestController
 @CrossOrigin
@@ -28,6 +31,9 @@ public class CategoriaControle {
 	
 	@Autowired
 	private CategoriaRepositorio repositorio;
+	
+	@Autowired
+	private ProdutoRepositorio repositorioProduto;
 	
 	private CategoriaAtualizador atualizador = new CategoriaAtualizador(); 
 	
@@ -49,6 +55,15 @@ public class CategoriaControle {
 	
 	@PostMapping("/cadastrar")
 	public RespostaPost cadastrarCategoria(@RequestBody Categoria categoria) {
+		List<Produto> produtos = new ArrayList<Produto>();
+		
+		for (Produto p:categoria.getProdutos()) {
+			Produto selecionado = repositorioProduto.findById(p.getId()).orElse(null);
+			if(selecionado != null) {
+				produtos.add(selecionado);
+			}
+		}
+		categoria.setProdutos(produtos);
 		Categoria categoriaCriada = repositorio.save(categoria);
 		RespostaPost resposta = new RespostaPost(categoriaCriada.getId(), "Categoria criada com sucesso.");
 		return resposta;
