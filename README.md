@@ -5,10 +5,7 @@
 
 <h2>:wrench: Tecnologias Utilizadas</h2>
 <p>
-<p> Comunicação <p>
-<img src="https://img.shields.io/badge/Slack-CED4DA?style=for-the-badge&logo=slack&logoColor=4A154B"/> 
-<img src="https://img.shields.io/badge/Discord-CED4DA?style=for-the-badge&logo=discord&logoColor=5865F2"/> 
-<img src="https://img.shields.io/badge/Trello-CED4DA?style=for-the-badge&logo=trello&logoColor=0052CC"/>
+
 <p> Desenvolvimento <p>
 <img src="https://img.shields.io/badge/Figma-CED4DA?style=for-the-badge&logo=figma&logoColor=F24E1E"/>
 <img src="https://img.shields.io/badge/Eclipse-CED4DA?style=for-the-badge&logo=eclipse&logoColor=2C2255" />
@@ -24,6 +21,23 @@
 
 <h2> :gear: Executando a Aplicação </h2>
 
+```bash
+# Baixe este repositório ou clone:
+ git clone https://github.com/EquipeGfour/API-UOL---Backend.git
+
+# Utilize a IDE que desejar (Ex: Eclipse)
+
+# Importe a pasta do projeto para sua IDE escolhida
+
+# Espere o Maven carregar as dependências do projeto (são listadas no arquivo pom.xml)
+
+# Se deseja rodar o CRUD de Usuário, execute:
+ CrudApplication.java
+ 
+# Se deseja rodar o cross-selling, execute:
+ CrossSellingApplicaion.java
+
+```
 <br>
 
 <h2> :computer: Demonstração
