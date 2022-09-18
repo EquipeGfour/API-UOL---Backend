@@ -21,6 +21,12 @@
 
 <h2> :gear: Executando a Aplicação </h2>
 
+No arquivo application-dev.properties, complete a variavel "spring.data.mongodb.uri" com a URI disponibilizada pelo MongoDB, ao logar na plataforma do MongoDB (Deployment -> Database -> connect -> connect your application). 
+Se for localhost, utilize suas credenciais no formato da URI ( mongodb://:@localhost/ ):
+
+<h1 align="center">
+<img src = "/img/Mongo.png"></h1>
+
 ```bash
 # Baixe este repositório ou clone:
  git clone https://github.com/EquipeGfour/API-UOL---Backend.git
