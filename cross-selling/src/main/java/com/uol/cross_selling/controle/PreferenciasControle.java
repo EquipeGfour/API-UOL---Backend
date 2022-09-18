@@ -1,6 +1,7 @@
 package com.uol.cross_selling.controle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uol.cross_selling.entidade.Categoria;
 import com.uol.cross_selling.entidade.Usuario;
 import com.uol.cross_selling.modelo.RespostaGet;
+import com.uol.cross_selling.modelo.RespostaPreferencias;
 import com.uol.cross_selling.repositorio.CategoriaRepositorio;
 import com.uol.cross_selling.repositorio.UsuarioRepositorio;
 
@@ -40,17 +42,28 @@ public class PreferenciasControle {
 	}
 	
 	@GetMapping("/preferencias/{id}")
-    public List<Categoria> preferenciasUser(@PathVariable String id){
+    public RespostaPreferencias preferenciasUser(@PathVariable String id){
 		List<Categoria> categorias = categoriaRepositorio.findAll();
+		List<Categoria> semInteresses = new ArrayList<Categoria>(categorias);
 		Usuario selecionado = repositorio.findById(id).orElse(null);
         List<Categoria> interesses = new ArrayList<Categoria>();
-        for(Categoria categoriaInteresse : selecionado.getInteresses()){
-            for(Categoria categoria : categorias) {
-                if(categoria.getId().contains(categoriaInteresse.getId())) {
-                    interesses.add(categoria);
-               }
-            }
+        String mensagem = "Usuario não encontrado";
+        if(selecionado != null) {  
+        	mensagem = "Usuario encontrado";
+        	for(Categoria categoriaInteresse : selecionado.getInteresses()){
+        		for(Categoria categoria : categorias) {
+        			if(categoria.getId().contains(categoriaInteresse.getId())) {
+        				interesses.add(categoria);
+        				Categoria acharCategoria = semInteresses.stream().filter(c -> categoria.getId().equals(c.getId())).findAny().orElse(null);
+        				if(acharCategoria != null) {	
+        					semInteresses.remove(acharCategoria);
+        				}
+        				
+        			}
+        		}
+        	}
         }
-        return interesses;       
+        RespostaPreferencias resposta = new RespostaPreferencias(mensagem, id, semInteresses, interesses);
+        return resposta;       
     }
 } 

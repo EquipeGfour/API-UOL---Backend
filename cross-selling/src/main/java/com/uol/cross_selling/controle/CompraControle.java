@@ -1,6 +1,8 @@
 package com.uol.cross_selling.controle;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,6 +30,17 @@ public class CompraControle {
 	@GetMapping("/compre-junto/{id}")
 	public List<Pacote> compreJunto(@PathVariable String id){
 		List<Pacote> pacotes = pacoteRepositorio.findAllPacoteByProdutosId(id);
+		List<Pacote> novaLista = new ArrayList<Pacote>();
+		Random random = new Random();
+		if(pacotes.size() > 3) {
+			for(int i = 0; i < 3; i++) {
+				int valor = random.nextInt(pacotes.size()-1);
+				Pacote p = pacotes.get(valor);
+				novaLista.add(p);
+				pacotes.remove(valor);
+			}
+			return novaLista;
+		}
 		return pacotes;
 	}
 	
