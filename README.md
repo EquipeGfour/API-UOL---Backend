@@ -40,4 +40,3 @@
 ```
 <br>
 
-<h2> :computer: Demonstração
