@@ -10,12 +10,13 @@
 <img src="https://img.shields.io/badge/Figma-CED4DA?style=for-the-badge&logo=figma&logoColor=F24E1E"/>
 <img src="https://img.shields.io/badge/Eclipse-CED4DA?style=for-the-badge&logo=eclipse&logoColor=2C2255" />
 <img src="https://img.shields.io/badge/CSS3-CED4DA?style=for-the-badge&logo=css3&logoColor=1572B6"/> 
-<br> <img src="https://img.shields.io/badge/JavaScript-CED4DA?style=for-the-badge&logo=javascript&logoColor=F7DF1E"/>  
+<br>   
 <img src="https://img.shields.io/badge/TypeScript-CED4DA?style=for-the-badge&logo=typescript&logoColor=007ACC"/> 
 <img src="https://img.shields.io/badge/Java-CED4DA?style=for-the-badge&logo=java&logoColor=ff8000" />
 <img src="https://img.shields.io/badge/Spring-CED4DA?style=for-the-badge&logo=spring&logoColor=6DB33F" />
 <img src="https://img.shields.io/badge/React-CED4DA?style=for-the-badge&logo=react&logoColor=61DAFB"/> 
 <img src="https://img.shields.io/badge/MongoDB-CED4DA?style=for-the-badge&logo=mongodb&logoColor=4EA94B"/>
+<img src="https://img.shields.io/badge/Swagger-CED4DA?style=for-the-badge&logo=Swagger&logoColor=4EA94B" />
 </p>
 <br>
 
@@ -45,4 +46,16 @@ Se for localhost, utilize suas credenciais no formato da URI ( mongodb://:@local
 
 ```
 <br>
+
+<h2> :compass:Rotas </h2>
+
+Rotas Cross-Seliing e Login
+<h1 align="center">
+<img src = "/img/crossSellingSwagger.png"></h1>
+<br>
+
+Rotas CRUD
+<h1 align="center">
+<img src = "/img/crudCategoriaSwagger.png">
+<img src = "/img/crudProdutoSwagger.png"</h1>
 
