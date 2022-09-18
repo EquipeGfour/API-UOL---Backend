@@ -2,19 +2,14 @@
 <h1 align="center"> Back-End - Projeto UOL </h1>
 
  - Repositório destinado ao Back-End da Aplicação UOL.
+<br>
 
 <h2>:wrench: Tecnologias Utilizadas</h2>
 <p>
-
-<p> Desenvolvimento <p>
-<img src="https://img.shields.io/badge/Figma-CED4DA?style=for-the-badge&logo=figma&logoColor=F24E1E"/>
-<img src="https://img.shields.io/badge/Eclipse-CED4DA?style=for-the-badge&logo=eclipse&logoColor=2C2255" />
-<img src="https://img.shields.io/badge/CSS3-CED4DA?style=for-the-badge&logo=css3&logoColor=1572B6"/> 
-<br>   
-<img src="https://img.shields.io/badge/TypeScript-CED4DA?style=for-the-badge&logo=typescript&logoColor=007ACC"/> 
+<p align="center">
+<img src="https://img.shields.io/badge/Eclipse-CED4DA?style=for-the-badge&logo=eclipse&logoColor=2C2255" />   
 <img src="https://img.shields.io/badge/Java-CED4DA?style=for-the-badge&logo=java&logoColor=ff8000" />
 <img src="https://img.shields.io/badge/Spring-CED4DA?style=for-the-badge&logo=spring&logoColor=6DB33F" />
-<img src="https://img.shields.io/badge/React-CED4DA?style=for-the-badge&logo=react&logoColor=61DAFB"/> 
 <img src="https://img.shields.io/badge/MongoDB-CED4DA?style=for-the-badge&logo=mongodb&logoColor=4EA94B"/>
 <img src="https://img.shields.io/badge/Swagger-CED4DA?style=for-the-badge&logo=Swagger&logoColor=4EA94B" />
 </p>
