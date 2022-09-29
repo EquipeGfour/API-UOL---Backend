@@ -1,7 +1,6 @@
 package com.uol.cross_selling.controle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,7 @@ public class PreferenciasControle {
         			if(categoria.getId().contains(categoriaInteresse.getId())) {
         				interesses.add(categoria);
         				Categoria acharCategoria = semInteresses.stream().filter(c -> categoria.getId().equals(c.getId())).findAny().orElse(null);
-        				if(acharCategoria != null) {	
+        				if(acharCategoria != null) {
         					semInteresses.remove(acharCategoria);
         				}
         				

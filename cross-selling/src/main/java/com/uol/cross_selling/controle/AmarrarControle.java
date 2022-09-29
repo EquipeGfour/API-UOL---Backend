@@ -20,14 +20,14 @@ import com.uol.cross_selling.repositorio.PacoteRepositorio;
 @RestController
 @CrossOrigin
 @RequestMapping("/compra")
-public class CompraControle {
+public class AmarrarControle {
 	
 	@Autowired
 	private CategoriaRepositorio categoriaRepositorio;
 	@Autowired
 	private PacoteRepositorio pacoteRepositorio;
 	
-	@GetMapping("/compre-junto/{id}")
+	@GetMapping("/amarrar/{id}")
 	public List<Pacote> compreJunto(@PathVariable String id){
 		List<Pacote> pacotes = pacoteRepositorio.findAllPacoteByProdutosId(id);
 		List<Pacote> novaLista = new ArrayList<Pacote>();

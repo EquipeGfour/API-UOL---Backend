@@ -1,5 +1,7 @@
 package com.uol.crud.entidade;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 
@@ -13,6 +15,9 @@ public class Produto {
 	private Double preco;
 	@NotNull(message = "A Descrição não pode ser um Valor Nulo.")
 	private String descricao;
+	private List<Categoria> categorias;
+	private List<Categoria> sugestao;
+
 
 	public String getId() {
 		return id;
@@ -38,4 +43,20 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+	
+	public List<Categoria> getSugestao() {
+		return sugestao;
+	}
+	public void setSugestao(List<Categoria> sugestao) {
+		this.sugestao = sugestao;
+	}
+	
 }
