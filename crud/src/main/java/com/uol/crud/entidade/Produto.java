@@ -16,7 +16,7 @@ public class Produto {
 	@NotNull(message = "A Descrição não pode ser um Valor Nulo.")
 	private String descricao;
 	private List<Categoria> categorias;
-	private List<Categoria> sugestao;
+	private List<Produto> sugestao;
 
 
 	public String getId() {
@@ -52,10 +52,10 @@ public class Produto {
 		this.categorias = categorias;
 	}
 	
-	public List<Categoria> getSugestao() {
+	public List<Produto> getSugestao() {
 		return sugestao;
 	}
-	public void setSugestao(List<Categoria> sugestao) {
+	public void setSugestao(List<Produto> sugestao) {
 		this.sugestao = sugestao;
 	}
 	
