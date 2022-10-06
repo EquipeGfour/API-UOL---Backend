@@ -16,6 +16,7 @@ import com.uol.cross_selling.entidade.Pacote;
 import com.uol.cross_selling.entidade.Produto;
 import com.uol.cross_selling.repositorio.CategoriaRepositorio;
 import com.uol.cross_selling.repositorio.PacoteRepositorio;
+import com.uol.cross_selling.repositorio.ProdutoRepositorio;
 
 @RestController
 @CrossOrigin
@@ -26,6 +27,8 @@ public class AmarrarControle {
 	private CategoriaRepositorio categoriaRepositorio;
 	@Autowired
 	private PacoteRepositorio pacoteRepositorio;
+	@Autowired
+	private ProdutoRepositorio produtoRepositorio;
 	
 	@GetMapping("/amarrar/{id}")
 	public List<Pacote> compreJunto(@PathVariable String id){
@@ -59,5 +62,15 @@ public class AmarrarControle {
 			produtosCategoria.addAll(categoriaSelecionada.getProdutos());
 		}return produtosCategoria;
 	}
+	
+	@GetMapping("/sugestao/{id}")
+	public List<Produto> sugestao (@PathVariable String id) {
+		Produto produtoSelecionado = produtoRepositorio.findById(id).orElse(null);
+		List<Produto> listaSugestao = produtoSelecionado.getSugestao();
+		return listaSugestao;
+	}
+	
+	
+	
 	
 }
