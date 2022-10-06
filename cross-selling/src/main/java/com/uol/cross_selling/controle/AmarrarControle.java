@@ -50,4 +50,14 @@ public class AmarrarControle {
 		return categoria.getProdutos();
 	}
 	
+	
+	@GetMapping("/selecionar-sugestoes/{categorias}")
+	public List<Produto> selecionarSugestoes (@PathVariable List<Categoria> categorias) {
+		List<Produto> produtosCategoria = new ArrayList<Produto>();
+		for(Categoria c: categorias) {
+			Categoria categoriaSelecionada = categoriaRepositorio.findById(c.getId()).orElse(null);
+			produtosCategoria.addAll(categoriaSelecionada.getProdutos());
+		}return produtosCategoria;
+	}
+	
 }
