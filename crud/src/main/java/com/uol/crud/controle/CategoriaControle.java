@@ -20,6 +20,7 @@ import com.uol.crud.modelo.CategoriaAtualizador;
 import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
 import com.uol.crud.modelo.RespostaPost;
+import com.uol.crud.modelo.RespostaPostCategorias;
 import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.CategoriaRepositorio;
 import com.uol.crud.repositorio.ProdutoRepositorio;
@@ -73,8 +74,9 @@ public class CategoriaControle {
 	}
 	
 	@PostMapping("/cadastrar-multiplas")
-	public List<Categoria> cadastrarMultiplasCategorias(@RequestBody List<Categoria> categorias) {
-	        return repositorio.saveAll(categorias);
+	public RespostaPostCategorias cadastrarMultiplasCategorias(@RequestBody List<Categoria> categorias) {
+	    RespostaPostCategorias resposta = new RespostaPostCategorias(null, "Categorias criadas com sucesso.", repositorio.saveAll(categorias));
+	    return resposta;
 	}
 	
 	@PutMapping("/atualizar/{id}")
