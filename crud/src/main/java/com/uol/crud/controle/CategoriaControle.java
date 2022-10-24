@@ -65,9 +65,16 @@ public class CategoriaControle {
 		}
 		categoria.setProdutos(produtos);
 		Categoria categoriaCriada = repositorio.save(categoria);
+		
+		
 		RespostaPost resposta = new RespostaPost(categoriaCriada.getId(), "Categoria criada com sucesso.");
 		return resposta;
 		
+	}
+	
+	@PostMapping("/cadastrar-multiplas")
+	public List<Categoria> cadastrarMultiplasCategorias(@RequestBody List<Categoria> categorias) {
+	        return repositorio.saveAll(categorias);
 	}
 	
 	@PutMapping("/atualizar/{id}")
@@ -95,7 +102,4 @@ public class CategoriaControle {
 		RespostaDelete resposta = new RespostaDelete(id, mensagem);
 		return resposta;
 	}
-	
-	
-
 }
