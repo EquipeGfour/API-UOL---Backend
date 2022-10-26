@@ -15,6 +15,7 @@ public class Produto {
 	private Double preco;
 	@NotNull(message = "A Descrição não pode ser um Valor Nulo.")
 	private String descricao;
+	private Double desconto;
 	private List<Categoria> categorias;
 	private List<Produto> sugestao;
 
@@ -42,6 +43,14 @@ public class Produto {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public Double getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto;
 	}
 	
 	public List<Categoria> getCategorias() {

@@ -8,8 +8,10 @@ public class Oferta {
 	private String descricao;
 	private String dataInicio;
 	private String dataExpiracao;
+	private Double desconto;
 	private List<Pacote> pacotes; 
 	private List<Produto> produtos;
+	
 	
 	public String getId() {
 		return id;
@@ -50,6 +52,15 @@ public class Oferta {
 	public void setDataExpiracao(String dataExpiracao) {
 		this.dataExpiracao = dataExpiracao;
 	}
+	
+	public Double getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto;
+	}
+
 	
 	public List<Pacote> getPacotes() {
 		return pacotes;
