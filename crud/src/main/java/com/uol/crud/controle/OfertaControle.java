@@ -26,7 +26,11 @@ public class OfertaControle {
 	    return repositorio.findAll();
 	}
 	
-	//@GetMapping("/busca/{id}")
+	@GetMapping("/buscar/{id}")
+	public Oferta buscarOfertaPorId(@PathVariable String id) {
+	    Oferta oferta = repositorio.findById(id).orElse(null);
+	    return oferta;
+	}
 	
 	//@PostMapping("/cadastrar")
 	
