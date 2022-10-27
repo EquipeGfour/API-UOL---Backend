@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Oferta;
+import com.uol.crud.modelo.RespostaGet;
 import com.uol.crud.repositorio.OfertaRepositorio;
 
 @RestController
@@ -27,9 +28,14 @@ public class OfertaControle {
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public Oferta buscarOfertaPorId(@PathVariable String id) {
-	    Oferta oferta = repositorio.findById(id).orElse(null);
-	    return oferta;
+	public RespostaGet buscarOfertaPorId(@PathVariable String id) {
+	    Oferta selecionado = repositorio.findById(id).orElse(null);
+	    String mensagem = "Oferta encontrada";
+	    if(selecionado == null) {
+	        mensagem = "Oferta não encontrada.";
+	    }
+	    RespostaGet resposta = new RespostaGet(id, mensagem, selecionado);
+	    return resposta;
 	}
 	
 	//@PostMapping("/cadastrar")
