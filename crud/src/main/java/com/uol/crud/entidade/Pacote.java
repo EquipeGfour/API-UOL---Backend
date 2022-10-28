@@ -69,10 +69,5 @@ public class Pacote {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
-	}
-	
-	
-	
-	
-	
+	}	
 } 

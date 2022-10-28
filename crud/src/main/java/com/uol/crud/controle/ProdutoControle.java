@@ -54,6 +54,14 @@ public class ProdutoControle {
 		Produto produtoCriado = repositorio.save(produto);
 		RespostaPost resposta = new RespostaPost(produtoCriado.getId(), "Produto Criado com Sucesso");
 		return new ResponseEntity<>(resposta,HttpStatus.ACCEPTED);
+		
+	}
+	
+	@PostMapping("cadastro-multiplos")
+	public List <Produto> cadastroMultiplos(@RequestBody List <Produto> produto) {
+		List <Produto> produtoMultiplo = repositorio.saveAll(produto);
+		return produtoMultiplo;
+		
 	}
 	
 	@PutMapping("/atualizar/{id}")
