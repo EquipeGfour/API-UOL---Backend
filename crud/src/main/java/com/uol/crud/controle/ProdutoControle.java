@@ -68,16 +68,18 @@ public class ProdutoControle {
 	public List <Produto>  cadastroMultiplos(@RequestBody List <Categoria> categorias) {
 		List <Produto> produtos = new ArrayList<Produto>();
 		for (Categoria c: categorias) {
-			Categoria cat = repositorioCategoria.findById(c.getId()).orElse(null);
-			System.out.print(cat);
-			if (cat == null) {
-				produtos.addAll(c.getProdutos());
-				repositorioCategoria.save(c);	
-				
+			if (c.getId() != null) {
+				Categoria cat = repositorioCategoria.findById(c.getId()).orElse(null);
+				if(c.getId() == null) {
+					System.out.print ("Não encontrado");
+				}else {
+					cat.getProdutos().addAll(c.getProdutos());
+					produtos.addAll(c.getProdutos());
+					repositorioCategoria.save(cat);	
+				}
 			}else {
-				cat.getProdutos().addAll(c.getProdutos());
 				produtos.addAll(c.getProdutos());
-				repositorioCategoria.save(cat);			
+				repositorioCategoria.save(c);
 			}
 		}	
 		repositorio.saveAll(produtos);	
