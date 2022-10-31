@@ -56,27 +56,42 @@ public class ProdutoControle {
 	}
 	
 	@PostMapping("/cadastrar")
-	public ResponseEntity<RespostaPost>  cadastrarProduto(@RequestBody @Valid Produto produto) {
-		Produto produtoCriado = repositorio.save(produto);
-		RespostaPost resposta = new RespostaPost(produtoCriado.getId(), "Produto Criado com Sucesso");
-		return new ResponseEntity<>(resposta,HttpStatus.ACCEPTED);
+	public void cadastrarProduto(@RequestBody @Valid List <Categoria> categorias) {
 		
+		Produto prod = new Produto ();
+		for(Categoria c: categorias) {
+			Categoria categoriaSelecionada = repositorioCategoria.findById(c.getId()).orElse(null);
+			if (categoriaSelecionada == null) {
+				System.out.print("Categoria não encotrada");
+			}else {
+				categoriaSelecionada.getProdutos().addAll(c.getProdutos());
+				repositorioCategoria.save(categoriaSelecionada);
+				for(Produto p : c.getProdutos()) {
+					if(prod.getId() == null) {
+						prod = repositorio.save(p);
+					}else {
+						System.out.print("Produto ja cadastrado");
+					}						
+				}
+			}
+		}
 	}
-	
-	
+		
 	@PostMapping("/cadastro-multiplos")
 	public List <Produto>  cadastroMultiplos(@RequestBody List <Categoria> categorias) {
 		List <Produto> produtos = new ArrayList<Produto>();
 		for (Categoria c: categorias) {
 			if (c.getId() != null) {
+				
 				Categoria cat = repositorioCategoria.findById(c.getId()).orElse(null);
-				if(c.getId() == null) {
+				if(cat == null) {
 					System.out.print ("Não encontrado");
 				}else {
 					cat.getProdutos().addAll(c.getProdutos());
 					produtos.addAll(c.getProdutos());
 					repositorioCategoria.save(cat);	
 				}
+				
 			}else {
 				produtos.addAll(c.getProdutos());
 				repositorioCategoria.save(c);
