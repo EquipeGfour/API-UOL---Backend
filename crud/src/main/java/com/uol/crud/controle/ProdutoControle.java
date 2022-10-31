@@ -1,5 +1,6 @@
 package com.uol.crud.controle;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uol.crud.entidade.Categoria;
 import com.uol.crud.entidade.Produto;
 import com.uol.crud.modelo.ProdutoAtualizador;
 import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
 import com.uol.crud.modelo.RespostaPost;
 import com.uol.crud.modelo.RespostaPut;
+import com.uol.crud.repositorio.CategoriaRepositorio;
 import com.uol.crud.repositorio.ProdutoRepositorio;
 
 @RestController
@@ -30,6 +33,9 @@ public class ProdutoControle {
 	
 	@Autowired
 	private ProdutoRepositorio repositorio;
+	
+	@Autowired
+	private CategoriaRepositorio repositorioCategoria;
 	
 	private ProdutoAtualizador atualizador = new ProdutoAtualizador();
 	
@@ -57,12 +63,27 @@ public class ProdutoControle {
 		
 	}
 	
-	@PostMapping("cadastro-multiplos")
-	public List <Produto> cadastroMultiplos(@RequestBody List <Produto> produto) {
-		List <Produto> produtoMultiplo = repositorio.saveAll(produto);
-		return produtoMultiplo;
-		
+	
+	@PostMapping("/cadastro-multiplos")
+	public List <Produto>  cadastroMultiplos(@RequestBody List <Categoria> categorias) {
+		List <Produto> produtos = new ArrayList<Produto>();
+		for (Categoria c: categorias) {
+			Categoria cat = repositorioCategoria.findById(c.getId()).orElse(null);
+			System.out.print(cat);
+			if (cat == null) {
+				produtos.addAll(c.getProdutos());
+				repositorioCategoria.save(c);	
+				
+			}else {
+				cat.getProdutos().addAll(c.getProdutos());
+				produtos.addAll(c.getProdutos());
+				repositorioCategoria.save(cat);			
+			}
+		}	
+		repositorio.saveAll(produtos);	
+		return produtos ;
 	}
+
 	
 	@PutMapping("/atualizar/{id}")
 	public RespostaPut atualizarProduto(@RequestBody Produto atualizacao, @PathVariable String id ) {

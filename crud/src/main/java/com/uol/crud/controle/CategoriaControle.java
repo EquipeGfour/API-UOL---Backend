@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Categoria;
@@ -72,6 +73,16 @@ public class CategoriaControle {
 		return resposta;
 		
 	}
+	
+	@PostMapping("/cadastroTeste")
+	public RespostaPost cadastrarCategoria1(@RequestBody Categoria categoria) {
+		Categoria categoriaCriada1 = repositorio.save(categoria);
+		RespostaPost resposta = new RespostaPost(categoriaCriada1.getId(), "Categoria criada com sucesso.");
+		return resposta;
+	}
+		
+
+		
 	
 	@PostMapping("/cadastrar-multiplas")
 	public RespostaPostCategorias cadastrarMultiplasCategorias(@RequestBody List<Categoria> categorias) {
