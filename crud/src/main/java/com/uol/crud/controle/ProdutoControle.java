@@ -64,8 +64,6 @@ public class ProdutoControle {
 			if (categoriaSelecionada == null) {
 				System.out.print("Categoria não encotrada");
 			}else {
-				categoriaSelecionada.getProdutos().addAll(c.getProdutos());
-				repositorioCategoria.save(categoriaSelecionada);
 				for(Produto p : c.getProdutos()) {
 					if(prod.getId() == null) {
 						prod = repositorio.save(p);
@@ -73,6 +71,8 @@ public class ProdutoControle {
 						System.out.print("Produto ja cadastrado");
 					}						
 				}
+				categoriaSelecionada.getProdutos().add(prod);
+				repositorioCategoria.save(categoriaSelecionada);
 			}
 		}
 	}
