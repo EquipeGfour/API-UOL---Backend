@@ -22,6 +22,7 @@ import com.uol.crud.modelo.ProdutoAtualizador;
 import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
 import com.uol.crud.modelo.RespostaPost;
+import com.uol.crud.modelo.RespostaPostProdutos;
 import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.CategoriaRepositorio;
 import com.uol.crud.repositorio.ProdutoRepositorio;
@@ -56,25 +57,31 @@ public class ProdutoControle {
 	}
 	
 	@PostMapping("/cadastrar")
-	public void cadastrarProduto(@RequestBody @Valid List <Categoria> categorias) {
+	public RespostaPostProdutos cadastrarProduto(@RequestBody @Valid List <Categoria> categorias) {
 		
 		Produto prod = new Produto ();
+		RespostaPostProdutos resposta = new RespostaPostProdutos(prod.getId(), "Cadastrado realizado com sucesso", prod);
+
 		for(Categoria c: categorias) {
 			Categoria categoriaSelecionada = repositorioCategoria.findById(c.getId()).orElse(null);
 			if (categoriaSelecionada == null) {
-				System.out.print("Categoria não encotrada");
+				resposta.setId(c.getId());
+				resposta.setMensagem("Categoria não encotrada.");
+				resposta.setDados(null);
+				return resposta;
 			}else {
 				for(Produto p : c.getProdutos()) {
 					if(prod.getId() == null) {
 						prod = repositorio.save(p);
-					}else {
-						System.out.print("Produto ja cadastrado");
 					}						
 				}
 				categoriaSelecionada.getProdutos().add(prod);
 				repositorioCategoria.save(categoriaSelecionada);
 			}
 		}
+		resposta.setDados(prod);
+		return resposta;
+		
 	}
 		
 	@PostMapping("/cadastro-multiplos")
