@@ -104,7 +104,7 @@ public class CategoriaControle {
 		String mensagem = "Categoria não encontrada.";
 		if(selecionado != null ) {
 			repositorio.delete(selecionado);
-			mensagem = "Categoris Excluida.";
+			mensagem = "Categoria Excluida.";
 			
 		}
 		RespostaDelete resposta = new RespostaDelete(id, mensagem);

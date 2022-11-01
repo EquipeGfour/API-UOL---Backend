@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +19,6 @@ import com.uol.crud.entidade.Produto;
 import com.uol.crud.modelo.ProdutoAtualizador;
 import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
-import com.uol.crud.modelo.RespostaPost;
 import com.uol.crud.modelo.RespostaPostProdutos;
 import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.CategoriaRepositorio;
@@ -58,16 +55,13 @@ public class ProdutoControle {
 	
 	@PostMapping("/cadastrar")
 	public RespostaPostProdutos cadastrarProduto(@RequestBody @Valid List <Categoria> categorias) {
-		
 		Produto prod = new Produto ();
-		RespostaPostProdutos resposta = new RespostaPostProdutos(prod.getId(), "Cadastrado realizado com sucesso", prod);
-
+		RespostaPostProdutos resposta = new RespostaPostProdutos(null, "Cadastrado realizado com sucesso", null);
 		for(Categoria c: categorias) {
 			Categoria categoriaSelecionada = repositorioCategoria.findById(c.getId()).orElse(null);
 			if (categoriaSelecionada == null) {
 				resposta.setId(c.getId());
 				resposta.setMensagem("Categoria não encotrada.");
-				resposta.setDados(null);
 				return resposta;
 			}else {
 				for(Produto p : c.getProdutos()) {
@@ -79,35 +73,36 @@ public class ProdutoControle {
 				repositorioCategoria.save(categoriaSelecionada);
 			}
 		}
+		resposta.setId(prod.getId());
 		resposta.setDados(prod);
 		return resposta;
-		
 	}
-		
+
 	@PostMapping("/cadastro-multiplos")
-	public List <Produto>  cadastroMultiplos(@RequestBody List <Categoria> categorias) {
+	public RespostaPostProdutos cadastroMultiplos(@RequestBody List <Categoria> categorias) {
 		List <Produto> produtos = new ArrayList<Produto>();
+		RespostaPostProdutos resposta = new RespostaPostProdutos(null, "Cadastrado realizado com sucesso", null);
 		for (Categoria c: categorias) {
 			if (c.getId() != null) {
-				
 				Categoria cat = repositorioCategoria.findById(c.getId()).orElse(null);
 				if(cat == null) {
-					System.out.print ("Não encontrado");
+					resposta.setId(c.getId());
+					resposta.setMensagem("Categoria não encotrada.");
+					return resposta;
 				}else {
 					cat.getProdutos().addAll(c.getProdutos());
 					produtos.addAll(c.getProdutos());
+					repositorio.saveAll(c.getProdutos());
 					repositorioCategoria.save(cat);	
 				}
-				
 			}else {
 				produtos.addAll(c.getProdutos());
 				repositorioCategoria.save(c);
 			}
-		}	
-		repositorio.saveAll(produtos);	
-		return produtos ;
+		}
+		resposta.setDados(produtos);
+		return resposta;
 	}
-
 	
 	@PutMapping("/atualizar/{id}")
 	public RespostaPut atualizarProduto(@RequestBody Produto atualizacao, @PathVariable String id ) {
