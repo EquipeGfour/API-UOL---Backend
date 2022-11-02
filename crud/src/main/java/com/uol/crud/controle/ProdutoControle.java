@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uol.crud.entidade.Categoria;
 import com.uol.crud.entidade.Produto;
 import com.uol.crud.modelo.ProdutoAtualizador;
+import com.uol.crud.modelo.RequisicaoProdutoCategoria;
 import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
 import com.uol.crud.modelo.RespostaPostProdutos;
@@ -54,28 +55,21 @@ public class ProdutoControle {
 	}
 	
 	@PostMapping("/cadastrar")
-	public RespostaPostProdutos cadastrarProduto(@RequestBody @Valid List <Categoria> categorias) {
-		Produto prod = new Produto ();
-		RespostaPostProdutos resposta = new RespostaPostProdutos(null, "Cadastrado realizado com sucesso", null);
-		for(Categoria c: categorias) {
-			Categoria categoriaSelecionada = repositorioCategoria.findById(c.getId()).orElse(null);
-			if (categoriaSelecionada == null) {
-				resposta.setId(c.getId());
-				resposta.setMensagem("Categoria não encotrada.");
-				return resposta;
+	public RespostaPostProdutos cadastrarProduto(@RequestBody @Valid RequisicaoProdutoCategoria requisicao) {
+		Produto produto = repositorio.save(requisicao.getProduto());
+		String resposta = "";
+		for(Categoria categoria: requisicao.getCategorias()) {
+			Categoria categoriaSelecionada = repositorioCategoria.findById(categoria.getId()).orElse(null);
+			if(categoriaSelecionada == null) {
+				System.out.print("Categoria não encontrada.");
+				resposta += " " + categoria.getId() + " Categoria não encontrada." + System.lineSeparator();
 			}else {
-				for(Produto p : c.getProdutos()) {
-					if(prod.getId() == null) {
-						prod = repositorio.save(p);
-					}						
-				}
-				categoriaSelecionada.getProdutos().add(prod);
+				categoriaSelecionada.getProdutos().add(produto);
 				repositorioCategoria.save(categoriaSelecionada);
+				resposta += " " +  categoriaSelecionada.getId() + " Categoria encontrada." + System.lineSeparator();
 			}
 		}
-		resposta.setId(prod.getId());
-		resposta.setDados(prod);
-		return resposta;
+		return new RespostaPostProdutos(null, resposta, produto);
 	}
 
 	@PostMapping("/cadastro-multiplos")
