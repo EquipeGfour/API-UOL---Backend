@@ -10,8 +10,6 @@ public class Oferta {
 	private String dataExpiracao;
 	private Double desconto;
 	private List<Pacote> pacotes; 
-	private List<Produto> produtos;
-	
 	
 	public String getId() {
 		return id;
@@ -70,11 +68,4 @@ public class Oferta {
 		this.pacotes = pacotes;
 	}
 	
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-	
-	public void setProdutos(List <Produto> produtos) {
-		this.produtos = produtos;
-	}
 }
