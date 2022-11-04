@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uol.crud.entidade.Categoria;
 import com.uol.crud.entidade.Produto;
 import com.uol.crud.modelo.ProdutoAtualizador;
+import com.uol.crud.modelo.RequisicaoProdCat;
 import com.uol.crud.modelo.RequisicaoProdutoCategoria;
 import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
@@ -73,29 +74,19 @@ public class ProdutoControle {
 	}
 
 	@PostMapping("/cadastro-multiplos")
-	public RespostaPostProdutos cadastroMultiplos(@RequestBody List <Categoria> categorias) {
-		List <Produto> produtos = new ArrayList<Produto>();
-		RespostaPostProdutos resposta = new RespostaPostProdutos(null, "Cadastrado realizado com sucesso", null);
-		for (Categoria c: categorias) {
-			if (c.getId() != null) {
-				Categoria cat = repositorioCategoria.findById(c.getId()).orElse(null);
-				if(cat == null) {
-					resposta.setId(c.getId());
-					resposta.setMensagem("Categoria não encotrada.");
-					return resposta;
+	public void cadastroMultiplos(@RequestBody List <RequisicaoProdCat> requisicoes) {
+		for(RequisicaoProdCat req: requisicoes) {
+			repositorio.save(req.getProduto());
+			for(Categoria categoria: req.getCategorias()) {
+				Categoria categoriaSelecionada = repositorioCategoria.findById(categoria.getId()).orElse(null);
+				if(categoriaSelecionada == null) {
+					System.out.print("Categoria não encontrada.");
 				}else {
-					cat.getProdutos().addAll(c.getProdutos());
-					produtos.addAll(c.getProdutos());
-					repositorio.saveAll(c.getProdutos());
-					repositorioCategoria.save(cat);	
+					categoriaSelecionada.getProdutos().add(req.getProduto());
+					repositorioCategoria.save(categoriaSelecionada);
 				}
-			}else {
-				produtos.addAll(c.getProdutos());
-				repositorioCategoria.save(c);
 			}
 		}
-		resposta.setDados(produtos);
-		return resposta;
 	}
 	
 	@PutMapping("/atualizar/{id}")
