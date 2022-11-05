@@ -1,5 +1,6 @@
 package com.uol.crud.controle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Oferta;
+import com.uol.crud.entidade.Pacote;
 import com.uol.crud.modelo.RespostaGet;
 import com.uol.crud.repositorio.OfertaRepositorio;
+import com.uol.crud.repositorio.PacoteRepositorio;
 
 @RestController
 @CrossOrigin
@@ -24,6 +27,8 @@ public class OfertaControle {
 	
 	@Autowired
 	private OfertaRepositorio repositorio;
+	@Autowired
+	private PacoteRepositorio pacoteRepositorio;
 	
 	@GetMapping("/buscar")
 	public List<Oferta> buscarOfertas(){
@@ -43,7 +48,18 @@ public class OfertaControle {
 	
 	@PostMapping("/cadastrar-multiplos")
 	public void cadastrarOfertas(@RequestBody List <Oferta> ofertas) {
-		repositorio.saveAll(ofertas);
+		for(Oferta oferta: ofertas) {
+			List <Pacote> pacotes = new ArrayList<Pacote>();
+			for(Pacote pacote: oferta.getPacotes()) {
+				Pacote pacoteEncontrado = pacoteRepositorio.findById(pacote.getId()).orElse(null);
+				if(pacoteEncontrado != null) {
+					pacotes.add(pacoteEncontrado);
+				}
+			}
+			oferta.setPacotes(pacotes);
+			repositorio.save(oferta);
+		}
+		
 	}
 	
 	
