@@ -53,12 +53,16 @@ public class OfertaControle {
 			for(Pacote pacote: oferta.getPacotes()) {
 				Pacote pacoteEncontrado = pacoteRepositorio.findById(pacote.getId()).orElse(null);
 				if(pacoteEncontrado != null) {
+					System.out.print(pacote.getPreco());
+					if (pacote.getPreco() != null ) {
+						pacoteEncontrado.setPreco(pacote.getPreco());
+					}
 					pacotes.add(pacoteEncontrado);
 				}
 			}
 			oferta.setPacotes(pacotes);
-			repositorio.save(oferta);
 		}
+		repositorio.saveAll(ofertas);
 		
 	}
 	
