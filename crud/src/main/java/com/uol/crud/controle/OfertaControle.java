@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Oferta;
 import com.uol.crud.entidade.Pacote;
+import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
 import com.uol.crud.repositorio.OfertaRepositorio;
 import com.uol.crud.repositorio.PacoteRepositorio;
@@ -69,7 +70,18 @@ public class OfertaControle {
 	
 	//@PutMapping("/atualizar/{id}")
 	
-	//@DeleteMapping("/excluir/{id}")
+	@DeleteMapping("/excluir/{id}")
+	public RespostaDelete excluirOferta(@PathVariable String id) {
+		Oferta dados = repositorio.findById(id).orElse(null);
+		String mensagem = null;
+		if(dados == null) {
+			mensagem = "Oferta não encontrado.";
+		}else {
+			mensagem = "Oferta excluida.";
+			repositorio.delete(dados);
+		}
+		return new RespostaDelete(id, mensagem);
+	}
 	
 	
 }
