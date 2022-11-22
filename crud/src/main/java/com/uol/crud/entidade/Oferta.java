@@ -6,9 +6,7 @@ public class Oferta {
 	private String id;
 	private String nome;
 	private String descricao;
-	private String dataInicio;
-	private String dataExpiracao;
-	private Double desconto;
+	private Double preco;
 	private List<Pacote> pacotes; 
 	
 	public String getId() {
@@ -35,31 +33,15 @@ public class Oferta {
 		this.descricao = descricao;
 	}
 	
-	public String getDataInicio() {
-		return dataInicio;
-	}
 	
-	public void setDataInicio(String dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-	
-	public String getDataExpiracao() {
-		return dataExpiracao;
-	}
-	
-	public void setDataExpiracao(String dataExpiracao) {
-		this.dataExpiracao = dataExpiracao;
-	}
-	
-	public Double getDesconto() {
-		return desconto;
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setDesconto(Double desconto) {
-		this.desconto = desconto;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
-	
 	public List<Pacote> getPacotes() {
 		return pacotes;
 	}

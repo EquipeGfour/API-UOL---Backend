@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uol.crud.entidade.Oferta;
 import com.uol.crud.entidade.Pacote;
+import com.uol.crud.modelo.OfertaAtualizador;
 import com.uol.crud.modelo.RespostaDelete;
 import com.uol.crud.modelo.RespostaGet;
+import com.uol.crud.modelo.RespostaPut;
 import com.uol.crud.repositorio.OfertaRepositorio;
 import com.uol.crud.repositorio.PacoteRepositorio;
 
@@ -30,6 +32,8 @@ public class OfertaControle {
 	private OfertaRepositorio repositorio;
 	@Autowired
 	private PacoteRepositorio pacoteRepositorio;
+	
+	private OfertaAtualizador atualizador = new OfertaAtualizador();
 	
 	@GetMapping("/buscar")
 	public List<Oferta> buscarOfertas(){
@@ -68,7 +72,18 @@ public class OfertaControle {
 	}
 	
 	
-	//@PutMapping("/atualizar/{id}")
+	@PutMapping("/atualizar/{id}")
+	public RespostaPut atualizarOferta(@RequestBody Oferta atualizacao, @PathVariable String id) {
+		Oferta OfertaSelecionada = repositorio.findById(id).orElse(null);
+		String mensagem = "Oferta não encontrada.";
+		if (OfertaSelecionada != null) {
+			mensagem = "Oferta Atualizada com Sucesso";
+			atualizador.atualizarOferta(OfertaSelecionada, atualizacao);
+			repositorio.save(OfertaSelecionada);
+		}
+		RespostaPut resposta = new RespostaPut(id, mensagem);
+		return resposta;
+	}
 	
 	@DeleteMapping("/excluir/{id}")
 	public RespostaDelete excluirOferta(@PathVariable String id) {
